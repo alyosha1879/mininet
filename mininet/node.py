@@ -351,6 +351,7 @@ class Node( object ):
         verbose = kwargs.get( 'verbose', False )
         log = info if verbose else debug
         log( '*** %s : %s\n' % ( self.name, args ) )
+        info( '*** %s : %s\n' % ( self.name, args ) )
         if self.shell:
             self.sendCmd( *args, **kwargs )
             return self.waitOutput( verbose )
@@ -1083,6 +1084,7 @@ class OVSSwitch( Switch ):
         "Run ovs-vsctl command (or queue for later execution)"
         if self.batch:
             cmd = ' '.join( str( arg ).strip() for arg in args )
+            info( "vsctl...%s/n", cmd )
             self.commands.append( cmd )
         else:
             return self.cmd( 'ovs-vsctl', *args, **kwargs )
