@@ -19,11 +19,13 @@ from functools import partial
 def run( cmd ):
     """Simple interface to subprocess.call()
        cmd: list of command params"""
+    #info( "run_command...%s\n" % cmd )
     return call( cmd.split( ' ' ) )
 
 def checkRun( cmd ):
     """Simple interface to subprocess.check_call()
        cmd: list of command params"""
+    #info( "run_command...%s\n" % cmd )
     return check_call( cmd.split( ' ' ) )
 
 # pylint doesn't understand explicit type checking
@@ -36,6 +38,7 @@ def oldQuietRun( *cmd ):
         cmd = cmd[ 0 ]
         if isinstance( cmd, str ):
             cmd = cmd.split( ' ' )
+    #info( "run_command...%s\n" % cmd )
     popen = Popen( cmd, stdout=PIPE, stderr=STDOUT )
     # We can't use Popen.communicate() because it uses
     # select(), which can't handle
@@ -81,6 +84,7 @@ def errRun( *cmd, **kwargs ):
     elif isinstance( cmd, list ) and shell:
         cmd = " ".join( arg for arg in cmd )
     debug( '*** errRun:', cmd, '\n' )
+    #info( "run_command...%s\n" % cmd )
     popen = Popen( cmd, stdout=PIPE, stderr=stderr, shell=shell )
     # We use poll() because select() doesn't work with large fd numbers,
     # and thus communicate() doesn't work either
@@ -180,6 +184,7 @@ def makeIntfPair( intf1, intf2, addr1=None, addr2=None, node1=None, node2=None,
         runCmd2( 'ip link del ' + intf2 )
     # Create new pair
     netns = 1 if not node2 else node2.pid
+    info("exec ip_link_add command netns...%s\n" % netns)
     if addr1 is None and addr2 is None:
         cmdOutput = runCmd( 'ip link add name %s '
                             'type veth peer name %s '

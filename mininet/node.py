@@ -895,6 +895,7 @@ class Switch( Node ):
            cmd: string"""
         kwargs.setdefault( 'printPid', False )
         if not self.execed:
+            info("cmd...%s, kwargs...%s\n" % (cmd, kwargs))
             return Node.sendCmd( self, *cmd, **kwargs )
         else:
             error( '*** Error: %s has execed and cannot accept commands' %
@@ -1083,6 +1084,7 @@ class OVSSwitch( Switch ):
         "Run ovs-vsctl command (or queue for later execution)"
         if self.batch:
             cmd = ' '.join( str( arg ).strip() for arg in args )
+            info("exec ovs-vsctl %s\n" % cmd)
             self.commands.append( cmd )
         else:
             return self.cmd( 'ovs-vsctl', *args, **kwargs )
