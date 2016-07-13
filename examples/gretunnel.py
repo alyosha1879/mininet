@@ -33,6 +33,8 @@ def greTunnelNet():
         net.addLink( s2, h )
         net.addLink( s1, s2 )
 
+    print( "*** Creating GRE Tunnel" )
+
     print( "*** Starting network" )
     net.build()
     c1.start()
