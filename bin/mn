@@ -127,6 +127,9 @@ class MininetRunner( object ):
 
     def __init__( self ):
         "Init."
+        
+        info("__init__")  
+ 
         self.options = None
         self.args = None  # May be used someday for more CLI scripts
         self.validate = None
@@ -190,6 +193,7 @@ class MininetRunner( object ):
         """Parse command-line args and return options object.
            returns: opts parse options dict"""
 
+        info("parseArgs")
         desc = ( "The %prog utility creates Mininet network from the\n"
                  "command line. It can create parametrized topologies,\n"
                  "invoke the Mininet CLI, and run tests." )

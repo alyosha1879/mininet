@@ -221,6 +221,8 @@ class Mininet( object ):
         defaults.update( params )
         if not cls:
             cls = self.host
+        
+        info( "creating %s instance: name...%s, defaults...%s \n" % (cls, name, defaults) )
         h = cls( name, **defaults )
         self.hosts.append( h )
         self.nameToNode[ name ] = h
@@ -478,6 +480,9 @@ class Mininet( object ):
 
     def start( self ):
         "Start controller and switches."
+
+        info( '** Mininet.start() \n' )
+
         if not self.built:
             self.build()
         info( '*** Starting controller\n' )

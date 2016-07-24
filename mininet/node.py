@@ -87,6 +87,8 @@ class Node( object ):
         self.privateDirs = params.get( 'privateDirs', [] )
         self.inNamespace = params.get( 'inNamespace', inNamespace )
 
+        info( "**inNamespace...%s \n" % inNamespace )
+
         # Stash configuration parameters for future reference
         self.params = params
 
@@ -103,6 +105,7 @@ class Node( object ):
         self.readbuf = ''
 
         # Start command interpreter shell
+        info( "**startShell() \n"  )
         self.startShell()
         self.mountPrivateDirs()
 
@@ -197,6 +200,9 @@ class Node( object ):
             cmd: command to run (list)
             params: parameters to Popen()"""
         # Leave this is as an instance method for now
+
+        info( "_popen: cmd...%s, params...%s \n" % (cmd, params) )       
+
         assert self
         return Popen( cmd, **params )
 
